@@ -16,5 +16,11 @@ namespace CoffeeShop.Controllers
         {
             return View(await _productRepository.GetAllAsync());
         }
+
+        public async Task<IActionResult> Detail(Guid id)
+        {
+            return View(await _productRepository.GetDetailAsync(id));
+        }
+
     }
 }
