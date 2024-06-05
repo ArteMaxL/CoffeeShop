@@ -2,8 +2,8 @@
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> GetAll();
-        IEnumerable<Product> GetTrending();
-        Product? GetDetail(Guid id);
+        Task<IEnumerable<Product?>> GetAllAsync();
+        Task<IEnumerable<Product?>> GetTrendingAsync();
+        Task<Product?> GetDetailAsync(Guid id);
     }
 }

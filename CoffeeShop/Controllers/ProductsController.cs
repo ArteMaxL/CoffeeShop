@@ -12,9 +12,9 @@ namespace CoffeeShop.Controllers
             _productRepository = productRepository;
         }
 
-        public IActionResult Shop()
+        public async Task<IActionResult> Shop()
         {
-            return View(_productRepository.GetAll());
+            return View(await _productRepository.GetAllAsync());
         }
     }
 }
