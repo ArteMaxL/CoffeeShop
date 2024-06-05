@@ -1,31 +1,17 @@
-﻿@using CoffeeShop.Models
-@model IEnumerable<Product>
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@model IEnumerable<Product>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Shop</title>
-</head>
-<body>
+<h1>Coffee Shop</h1>
 
-    <h1>Coffee Shop</h1>
-
-    @if (!Model.Any())
+@if (!Model.Any())
+{
+    <p>No hay productos para mostrar...</p>
+}
+else
+{
+    foreach (var item in Model)
     {
-        <p>No hay productos para mostrar...</p>
+        <img height="100" width="100" src="@item.ImageUrl" />
+        <a asp-controller="Products" asp-action="Detail" asp-route-id="@item.Id"><h3>@item.Name</h3></a>
+        <p>@item.Price.ToString("c")</p>
     }
-    else
-    {
-        foreach (var item in Model)
-        {
-            <img height="100" width="100" src="@item.ImageUrl"/>
-            <a asp-controller="Products" asp-action="Detail" asp-route-id="@item.Id"><h3>@item.Name</h3></a>
-            <p>@item.Price.ToString("c")</p>        
-        }
-    }    
-
-</body>
-</html>
+}
