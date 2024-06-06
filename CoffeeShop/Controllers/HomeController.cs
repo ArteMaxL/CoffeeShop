@@ -1,12 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CoffeeShop.Models.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CoffeeShop.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IProductRepository _productRepository;
+
+        public HomeController(IProductRepository productRepository)
         {
-            return View();
+            _productRepository = productRepository;
+        }
+
+        public async Task<IActionResult> Index()
+        {            
+            return View(await _productRepository.GetTrendingAsync());
         }
     }
 }

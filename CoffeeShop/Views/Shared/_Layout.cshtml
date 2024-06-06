@@ -59,7 +59,7 @@
                         @* <partial name="_LoginPartial"></partial> *@
                         <li class="nav-item">
                             <a class="nav-link link text-black show display-4" asp-controller="ShoppingCart" asp-action="Index">
-                                @* <span class="mobi-mbri mobi-mbri-shopping-bag mbr-iconfont mbr-iconfont-btn"><small>(@cartCount)</small></span> *@
+                                <span class="mobi-mbri mobi-mbri-shopping-bag mbr-iconfont mbr-iconfont-btn"><small>(cartCount)</small></span> 
                             </a>
                         </li>
                     </ul>
@@ -75,6 +75,6 @@
     <script src="~/ytplayer/index.js"></script>
     <script src="~/dropdown/js/navbar-dropdown.js"></script>
     <script src="~/theme/js/script.js"></script>
-    @await RenderSectionAsync("Scripts", false);
+    @await RenderSectionAsync("Scripts", false)
 </body>
 </html>

@@ -6,7 +6,7 @@ namespace CoffeeShop.Models.Services
 {
     public class ProductRepository : IProductRepository
     {
-        private CoffeeShopDbContext _context;
+        private readonly CoffeeShopDbContext _context;
 
         public ProductRepository(CoffeeShopDbContext context)
         {
