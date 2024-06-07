@@ -83,7 +83,7 @@ namespace CoffeeShop.Models.Services
             return totalCost;
         }
 
-        public async Task<List<ShoppingCartItem>> GetShoppingCartItems()
+        public async Task<List<ShoppingCartItem>> GetShoppingCartItemsAsync()
         {
             return ShoppingCartItems ??= await _context.ShoppingCartItems
                                                 .Where(x => x.ShoppingCartId.Equals(ShoppingCartId))
