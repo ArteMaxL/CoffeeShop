@@ -16,7 +16,7 @@ namespace CoffeeShop.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var items = await _shoppingCartRepository.GetShoppingCartItems();
+            var items = await _shoppingCartRepository.GetShoppingCartItemsAsync();
             _shoppingCartRepository.ShoppingCartItems = items;
             ViewBag.CartTotal = _shoppingCartRepository.GetCartPrice();
             return View(items);
@@ -29,7 +29,7 @@ namespace CoffeeShop.Controllers
             if (product is not null)
             {
                 await _shoppingCartRepository.AddToCartAsync(product);
-                var cartItems = await _shoppingCartRepository.GetShoppingCartItems();
+                var cartItems = await _shoppingCartRepository.GetShoppingCartItemsAsync();
                 int cartCount = 0;
 
                 if (cartItems is not null)
@@ -50,7 +50,7 @@ namespace CoffeeShop.Controllers
             if (product is not null)
             {
                 await _shoppingCartRepository.RemoveFromCartAsync(product);
-                var cartItems = await _shoppingCartRepository.GetShoppingCartItems();
+                var cartItems = await _shoppingCartRepository.GetShoppingCartItemsAsync();
                 int cartCount = 0;
 
                 if (cartItems is not null)
