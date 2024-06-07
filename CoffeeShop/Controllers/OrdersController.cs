@@ -30,6 +30,7 @@ namespace CoffeeShop.Controllers
 
             await _orderRepository.PlaceOrderAsync(order);
             await _shoppingCartRepository.ClearCartAsync();
+            HttpContext.Session.SetInt32("CartCount", 0);
 
             return RedirectToAction("CheckoutComplete");
         }
