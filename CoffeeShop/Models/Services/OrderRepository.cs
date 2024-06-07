@@ -19,6 +19,11 @@ namespace CoffeeShop.Models.Services
             var shoppingCartItems = await _shoppingCartRepository.GetShoppingCartItemsAsync();
             order.OrderDetails = new List<OrderDetail>();
 
+            if (shoppingCartItems is null)
+            {
+                return;
+            }
+
             foreach (var item in shoppingCartItems)
             {
                 if (item.Product is not null)
