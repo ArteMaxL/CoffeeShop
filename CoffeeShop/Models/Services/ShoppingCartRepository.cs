@@ -31,8 +31,13 @@ namespace CoffeeShop.Models.Services
 
         public async Task AddToCartAsync(Product product)
         {
+            if (product is null)
+            {
+                return;
+            }
+
             var shoppingCartItem = await _context.ShoppingCartItems
-                .FirstOrDefaultAsync(x => x.Id.Equals(product.Id) && x.ShoppingCartId.Equals(ShoppingCartId));
+                .FirstOrDefaultAsync(x => x.Product!.Id.Equals(product.Id) && x.ShoppingCartId.Equals(ShoppingCartId));
 
             if (shoppingCartItem is null)
             {
@@ -57,6 +62,7 @@ namespace CoffeeShop.Models.Services
         {
             var cartItems = _context.ShoppingCartItems.Where(x => x.ShoppingCartId.Equals(ShoppingCartId));
             _context.ShoppingCartItems.RemoveRange(cartItems);
+
             await _context.SaveChangesAsync();
         }
 
@@ -70,7 +76,7 @@ namespace CoffeeShop.Models.Services
             {
                 totalCost = cartItems.Select(x => x.Product!.Price * x.Quantity)
                                      .Sum();
-                
+
                 return totalCost;
             }
 
@@ -82,13 +88,13 @@ namespace CoffeeShop.Models.Services
             return ShoppingCartItems ??= await _context.ShoppingCartItems
                                                 .Where(x => x.ShoppingCartId.Equals(ShoppingCartId))
                                                 .Include(x => x.Product)
-                                                .ToListAsync();
+                                                .ToListAsync() ?? new List<ShoppingCartItem>();
         }
 
         public async Task<int> RemoveFromCartAsync(Product product)
         {
             var shoppingCartItem = await _context.ShoppingCartItems
-                .FirstOrDefaultAsync(x => x.Id.Equals(product.Id) && x.ShoppingCartId.Equals(ShoppingCartId));
+                .FirstOrDefaultAsync(x => x.Product!.Id.Equals(product.Id) && x.ShoppingCartId.Equals(ShoppingCartId));
 
             var quantity = 0;
 

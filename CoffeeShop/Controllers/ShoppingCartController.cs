@@ -18,6 +18,7 @@ namespace CoffeeShop.Controllers
         {
             var items = await _shoppingCartRepository.GetShoppingCartItems();
             _shoppingCartRepository.ShoppingCartItems = items;
+            ViewBag.CartTotal = _shoppingCartRepository.GetCartPrice();
             return View(items);
         }
 
@@ -28,6 +29,15 @@ namespace CoffeeShop.Controllers
             if (product is not null)
             {
                 await _shoppingCartRepository.AddToCartAsync(product);
+                var cartItems = await _shoppingCartRepository.GetShoppingCartItems();
+                int cartCount = 0;
+
+                if (cartItems is not null)
+                {
+                    cartCount = cartItems.Sum(x => x.Quantity);
+                }
+
+                HttpContext.Session.SetInt32("CartCount", cartCount);
             }
 
             return RedirectToAction("Index");
@@ -40,6 +50,15 @@ namespace CoffeeShop.Controllers
             if (product is not null)
             {
                 await _shoppingCartRepository.RemoveFromCartAsync(product);
+                var cartItems = await _shoppingCartRepository.GetShoppingCartItems();
+                int cartCount = 0;
+
+                if (cartItems is not null)
+                {
+                    cartCount = cartItems.Sum(x => x.Quantity);
+                }
+
+                HttpContext.Session.SetInt32("CartCount", cartCount);
             }
 
             return RedirectToAction("Index");
