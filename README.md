@@ -1,3 +1,3 @@
-# Demo Mini Tienda Coffee Shop MVC
+# Demo Mini Tienda Coffee Shop .Net MVC
 
 *** En proceso... ***
